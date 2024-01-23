@@ -15,7 +15,7 @@ class User(Base):
     username = Column(String(250), unique = True, nullable= False)
     password = Column (String(250), nullable = False)
     email = Column(String(250), unique = True, nullable= False)
-    cel = Column(String(250), unique = True, nullable = False)
+    cel = Column(Integer, unique = True, nullable = False)
 
     class Login(Base):
         __tablename__ = 'login'
@@ -34,9 +34,9 @@ class User(Base):
         
         user_post = relationship('User')
 
-    class Photo (Base):
+    class Media (Base):
 
-        __tablename__ = 'photo'
+        __tablename__ = 'media'
 
 
         id = Column(Integer, primary_key = True)
@@ -44,7 +44,7 @@ class User(Base):
         postId = Column(Integer, ForeignKey('post.id'))
         userId = Column(Integer, ForeignKey('user.id'))
 
-        photo = relationship('Post')
+        media = relationship('Post')
 
 
     class Like (Base):
@@ -53,7 +53,10 @@ class User(Base):
         id = Column(Integer, primary_key = True)
         usarname = Column(String(250), ForeignKey('user.username'))
 
-        like = relationship('Photo')
+        like = relationship('Media')
+
+
+
     class Comments (Base):
         __tablename__ = 'comments'
 
@@ -62,7 +65,7 @@ class User(Base):
         userId = Column (Integer, ForeignKey('user.id'))
         username = Column(String(250), ForeignKey('user.username'))
 
-        comments = relationship('Photo')
+        comments = relationship('Media')
 
 
         class Followers (Base):
